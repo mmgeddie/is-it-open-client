@@ -14,7 +14,3 @@ app.all("/*", function(req, res, next) {
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'));
 });
-
-
-process.env.HARAKA = path.join(path.resolve('.'), 'haraka');
-var haraka  = require('./node_modules/Haraka/haraka.js');
