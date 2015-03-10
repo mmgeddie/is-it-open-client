@@ -46,6 +46,11 @@ app.post("/establishments", function(req, res, next) {
 	}
 });
 
+app.post("/cloudmailin", function(req, res, next) {
+	res.send(req.body);
+	console.log(req.body);
+});
+
 app.all("/*", function(req, res, next) {
     res.sendFile("index.html", { root: path.join(__dirname, './public') });
 });
