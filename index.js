@@ -48,7 +48,24 @@ app.post("/establishments", function(req, res, next) {
 
 app.post("/cloudmailin", function(req, res, next) {
 	res.send(req.body);
-	console.log(req.body);
+	if (req.body.plain) {
+		var split = req.body.plain.split(/You paid \$([0-9]+.[0-9]+)(.+)to (.+) on (.+)/);
+		if (split.length>4 && !isNaN(split[1])) {
+			var date = new Date(split[4]);
+			if (!isNaN(date)) {
+				MongoClient.connect(mongoURL, function(err, db) {
+					if(err) throw err;
+
+					var collection = db.collection('establishments');
+
+					collection.update({name:split[3]}, {name:split[3], lastUpdate:date.toJSON()}, {upsert:true, w: 1}, function(err, result) {
+					    if(err) throw err;
+			    		db.close();
+					});
+				});
+			}
+		}
+	}
 });
 
 app.all("/*", function(req, res, next) {
