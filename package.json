@@ -10,10 +10,11 @@
   "author": "Matt Geddie",
   "license": "MIT",
     "dependencies": {
-    "express": "^4.12.2"
+    "mongodb": "*",
+    "express": "latest",
+    "body-parser" : "*"
   },
   "engines": {
-    "node": "0.10.x",
-    "npm": "2.1.x"
+    "node": "0.10.x"
   }
 }
