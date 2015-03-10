@@ -50,9 +50,10 @@ app.post("/cloudmailin", function(req, res, next) {
 	res.send(req.body);
 	if (req.body.plain) {
 		console.log("req.body.plain: "+req.body.plain)
-		var split = req.body.plain.split(/You paid \$([0-9]+.[0-9]+)(.+)to (.+) on (.+)/);
+		var split = req.body.plain.split(/You paid \$([0-9]+.[0-9]+)(.+)to (.+) on (.+?)\./);
+		console.log("split: "+JSON.stringify(split));
 		if (split.length>4 && !isNaN(split[1])) {
-			var date = new Date(split[4]);
+			var date = new Date(split[4]+" CDT");
 			if (!isNaN(date)) {
 				MongoClient.connect(mongoURL, function(err, db) {
 					if(err) throw err;
